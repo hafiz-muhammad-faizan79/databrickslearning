@@ -1,0 +1,20 @@
+[project]
+name = "data-project"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "airflow-operators>=0.11.0",
+    "apache-airflow>=3.3.2",
+    "databricks-sdk>=0.47.0",
+    "dbt-core>=1.12.6",
+    "dbt-databricks>=1.10.9",
+]
+
+[project.scripts]
+data-project = "data_project:main"
+
+[build-system]
+requires = ["uv_build>=0.12.22,<0.13.0"]
+build-backend = "uv_build"

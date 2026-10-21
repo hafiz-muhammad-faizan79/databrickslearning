@@ -1,0 +1,32 @@
+[0m19:11:36.331647 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x71347f3cf4d0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x71347de5bed0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x71347de5bb10>]}
+
+
+============================== 19:11:36.389680 | a6749aca-a3c6-45c7-a77a-534f22d8935c ==============================
+[0m19:11:36.389680 [info ] [MainThread]: Running with dbt=1.12.6
+[0m19:11:36.391233 [debug] [MainThread]: running dbt with arguments {'cache_selected_only': 'False', 'log_path': 'logs', 'maximum_seed_size_mib': '1', 'write_json': 'True', 'use_colors': 'True', 'log_cache_events': 'False', 'profiles_dir': '/opt/airflow/walmart_project', 'empty': 'None', 'quiet': 'False', 'version_check': 'True', 'debug': 'False', 'use_experimental_parser': 'False', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'introspect': 'True', 'fail_fast': 'False', 'hints_enabled': 'True', 'indirect_selection': 'eager', 'invocation_command': 'dbt source freshness --profiles-dir /opt/airflow/walmart_project', 'partial_parse': 'True', 'printer_width': '80', 'log_format': 'default', 'target_path': 'None', 'no_print': 'None', 'warn_error': 'None', 'send_anonymous_usage_stats': 'True', 'static_parser': 'True'}
+[0m19:11:36.392787 [error] [MainThread]: [[31mERROR[0m]: Encountered an error:
+Runtime Error
+  No dbt_project.yml found at expected path /opt/airflow/walmart_project/dbt_project.yml
+  Verify that each entry within packages.yml (and their transitive dependencies) contains a file named dbt_project.yml
+  
+[0m19:11:36.396261 [debug] [MainThread]: Resource report: {"command_name": "freshness", "command_success": false, "command_wall_clock_time": 0.15240836, "process_in_blocks": "0", "process_kernel_time": 0.107624, "process_mem_max_rss": "133476", "process_out_blocks": "0", "process_user_time": 1.678138}
+[0m19:11:36.397963 [debug] [MainThread]: Command `dbt source freshness` failed at 19:11:36.397714 after 0.15 seconds
+[0m19:11:36.399246 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x71347dc81220>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x71347ddf72f0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x71347dc89bf0>]}
+[0m19:11:36.400388 [debug] [MainThread]: Flushing usage events
+[0m19:11:38.446217 [debug] [MainThread]: An error was encountered while trying to flush usage events
+[0m19:15:40.777573 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x79071cb774d0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x79071b60bed0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x79071b60bb10>]}
+
+
+============================== 19:15:40.783886 | 1eaef8ba-92d3-414f-b67f-ff7117c0503e ==============================
+[0m19:15:40.783886 [info ] [MainThread]: Running with dbt=1.12.6
+[0m19:15:40.785928 [debug] [MainThread]: running dbt with arguments {'quiet': 'False', 'no_print': 'None', 'printer_width': '80', 'introspect': 'True', 'write_json': 'True', 'log_path': 'logs', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'static_parser': 'True', 'target_path': 'None', 'indirect_selection': 'eager', 'use_colors': 'True', 'hints_enabled': 'True', 'empty': 'None', 'warn_error': 'None', 'profiles_dir': '/opt/airflow/walmart_project', 'log_cache_events': 'False', 'use_experimental_parser': 'False', 'cache_selected_only': 'False', 'maximum_seed_size_mib': '1', 'invocation_command': 'dbt source freshness --profiles-dir /opt/airflow/walmart_project', 'version_check': 'True', 'log_format': 'default', 'send_anonymous_usage_stats': 'True', 'partial_parse': 'True', 'debug': 'False', 'fail_fast': 'False'}
+[0m19:15:40.787484 [error] [MainThread]: [[31mERROR[0m]: Encountered an error:
+Runtime Error
+  No dbt_project.yml found at expected path /opt/airflow/walmart_project/dbt_project.yml
+  Verify that each entry within packages.yml (and their transitive dependencies) contains a file named dbt_project.yml
+  
+[0m19:15:40.789612 [debug] [MainThread]: Resource report: {"command_name": "freshness", "command_success": false, "command_wall_clock_time": 0.13324817, "process_in_blocks": "0", "process_kernel_time": 0.108269, "process_mem_max_rss": "113468", "process_out_blocks": "0", "process_user_time": 1.539826}
+[0m19:15:40.791703 [debug] [MainThread]: Command `dbt source freshness` failed at 19:15:40.791241 after 0.14 seconds
+[0m19:15:40.792950 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x79071b431220>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x79071b5a72f0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x79071b439bf0>]}
+[0m19:15:40.794092 [debug] [MainThread]: Flushing usage events
+[0m19:15:42.762627 [debug] [MainThread]: An error was encountered while trying to flush usage events

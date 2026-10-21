@@ -1,0 +1,29 @@
+sources:
+  - name: walmart_databricks
+    database: walmart
+    schema: bronze
+    tables:
+      - name: customers
+      - name: orders
+      - name: order_items
+      - name: employees
+      - name: products
+      - name: stores
+
+# {
+#   sources: [
+#     {
+#       "name": "walmart_databricks",
+#       "database": "walmart",
+#       "schema": "bronze",
+#       "tables": [
+#         { "name": "customers" },
+#         { "name": "orders" },
+#         { "name": "order_items" },
+#         { "name": "employees" },
+#         { "name": "products" },
+#         { "name": "stores" }
+#       ]
+#     }
+#   ]
+# }        
