@@ -1,7 +1,7 @@
 from airflow.sdk import dag, task
 
 DBT = "cd /opt/airflow/walmart_project && dbt --no-partial-parse {cmd} --profiles-dir /opt/airflow/walmart_project"
-JOB_ID = 672550021054472
+PIPELINE_ID = "b0411e4b-a746-4480-96b2-2b3df97ec7a4"
 
 
 @dag()
@@ -12,7 +12,7 @@ def orchestrate():
         import os
         import time
         from databricks.sdk import WorkspaceClient
-        from databricks.sdk.service.jobs import RunLifeCycleState, RunResultState
+        from databricks.sdk.errors import ResourceConflict
 
         host = os.environ["DATABRICKS_HOST"]
         if not host.startswith("http"):
@@ -20,27 +20,32 @@ def orchestrate():
 
         ws = WorkspaceClient(host=host, token=os.environ["DATABRICKS_TOKEN"])
 
-        run_id = ws.jobs.run_now(job_id=JOB_ID).run_id
+        # Start the pipeline directly (no job needed). full_refresh stays off for CDC.
+        # If an update is already running, wait on that one instead of failing.
+        try:
+            update_id = ws.pipelines.start_update(
+                pipeline_id=PIPELINE_ID, full_refresh=False
+            ).update_id
+            print(f"Started pipeline update: {update_id}")
+        except ResourceConflict:
+            update_id = ws.pipelines.get(pipeline_id=PIPELINE_ID).latest_updates[0].update_id
+            print(f"An update is already active, waiting on it: {update_id}")
+
         deadline = time.time() + 3600  # give up after 1 hour
 
         while time.time() < deadline:
-            state = ws.jobs.get_run(run_id=run_id).state
-            print(f"Job state: {state.life_cycle_state}")
+            state = ws.pipelines.get_update(
+                pipeline_id=PIPELINE_ID, update_id=update_id
+            ).update.state.value
+            print(f"Pipeline state: {state}")
 
-            if state.life_cycle_state in (
-                RunLifeCycleState.TERMINATED,
-                RunLifeCycleState.SKIPPED,
-                RunLifeCycleState.INTERNAL_ERROR,
-            ):
-                if state.result_state == RunResultState.SUCCESS:
-                    return "Ingest CDC completed successfully"
-                raise Exception(
-                    f"Job ended: {state.life_cycle_state}, result: {state.result_state}, "
-                    f"message: {state.state_message}"
-                )
-            time.sleep(5)
+            if state == "COMPLETED":
+                return update_id
+            if state in ("FAILED", "CANCELED"):
+                raise Exception(f"Pipeline update ended with state: {state}")
+            time.sleep(10)
 
-        raise TimeoutError("Databricks job did not finish within 1 hour")
+        raise TimeoutError("Pipeline update did not finish within 1 hour")
 
     @task.bash
     def clean_target():
